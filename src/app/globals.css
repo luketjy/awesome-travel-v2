@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-ocean-50: #e0f7fa;
+  --color-ocean-100: #b2ebf2;
+  --color-ocean-200: #80deea;
+  --color-ocean-400: #26c6da;
+  --color-ocean-500: #00838f;
+  --color-ocean-600: #006064;
+  --color-ocean-700: #004d57;
+  --color-teal-300: #4dd0e1;
+  --color-teal-400: #26c6da;
+  --color-teal-500: #00acc1;
+  --color-sandy-50: #fffde7;
+  --color-sandy-100: #fff8e1;
+  --color-sandy-200: #fff3cd;
+  --color-sandy-300: #ffe082;
+  --color-sandy-500: #ffc107;
+  --color-coral-400: #ff7043;
+  --color-coral-500: #f4511e;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  font-family: var(--font-geist-sans, Arial, Helvetica, sans-serif);
+  color: #1a1a1a;
+  background: #ffffff;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Hide Google Translate toolbar */
+.goog-te-banner-frame,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+.goog-te-menu-value:hover {
+  text-decoration: none !important;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scroll-reveal.scroll-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
