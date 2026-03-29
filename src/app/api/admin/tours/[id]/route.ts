@@ -15,7 +15,12 @@ export async function GET(_req: NextRequest, ctx: Ctx) {
 export async function PUT(req: NextRequest, ctx: Ctx) {
   const { id } = await ctx.params
   const body = await req.json()
-  const { name, description, price, category, duration, images, is_active } = body
+  const {
+    name, description, price, category, duration, images, is_active,
+    tour_type, destination, highlights, inclusions, exclusions,
+    itinerary, difficulty, min_pax, max_pax, pricing_options,
+    suitability_tags, enquiry_only,
+  } = body
 
   const updates: Record<string, unknown> = {
     description,
@@ -25,6 +30,18 @@ export async function PUT(req: NextRequest, ctx: Ctx) {
     images,
     is_active,
     updated_at: new Date().toISOString(),
+    tour_type,
+    destination,
+    highlights,
+    inclusions,
+    exclusions,
+    itinerary,
+    difficulty,
+    min_pax: min_pax !== undefined ? (min_pax ? Number(min_pax) : null) : undefined,
+    max_pax: max_pax !== undefined ? (max_pax ? Number(max_pax) : null) : undefined,
+    pricing_options,
+    suitability_tags,
+    enquiry_only,
   }
 
   if (name) {
@@ -32,7 +49,7 @@ export async function PUT(req: NextRequest, ctx: Ctx) {
     updates.slug = slugify(name)
   }
 
-  // Remove undefined keys
+  // Remove keys that were not sent (undefined), but keep null values to allow clearing fields
   Object.keys(updates).forEach((k) => updates[k] === undefined && delete updates[k])
 
   const supabase = createServerClient()

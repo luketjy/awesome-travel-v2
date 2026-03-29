@@ -54,6 +54,9 @@ export default async function AdminToursPage() {
                 <div>
                   <p className="font-semibold text-gray-800">{tour.name}</p>
                   <p className="text-sm text-gray-500 mt-0.5">
+                    {tour.tour_type === 'worldwide' && (
+                      <span className="inline-block text-xs bg-coral-100 text-coral-700 px-1.5 py-0.5 rounded mr-1.5 font-medium">Worldwide</span>
+                    )}
                     {tour.category} · {tour.duration} · {formatPrice(tour.price)}
                   </p>
                 </div>

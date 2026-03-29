@@ -10,7 +10,31 @@ import ScrollReveal from '@/components/ui/ScrollReveal'
 import { createServerClient } from '@/lib/supabase/server'
 import { Tour } from '@/lib/types'
 
-async function getActiveTours(): Promise<Tour[]> {
+async function getLocalTours(): Promise<Tour[]> {
+  const supabase = createServerClient()
+  const { data } = await supabase
+    .from('tours')
+    .select('*')
+    .eq('is_active', true)
+    .or('tour_type.eq.local,tour_type.is.null')
+    .order('created_at', { ascending: false })
+    .limit(6)
+  return data ?? []
+}
+
+async function getWorldwideTours(): Promise<Tour[]> {
+  const supabase = createServerClient()
+  const { data } = await supabase
+    .from('tours')
+    .select('*')
+    .eq('is_active', true)
+    .eq('tour_type', 'worldwide')
+    .order('created_at', { ascending: false })
+    .limit(6)
+  return data ?? []
+}
+
+async function getAllActiveTours(): Promise<Tour[]> {
   const supabase = createServerClient()
   const { data } = await supabase
     .from('tours')
@@ -57,18 +81,21 @@ const stats = [
   { value: '4-hr', label: 'Walking tours' },
   { value: '5★', label: 'Guest experience' },
   { value: 'EN & 中文', label: 'Bilingual guides' },
-  { value: 'SG & Beyond', label: 'Destinations' },
+  { value: 'Worldwide', label: 'Destinations' },
 ]
 
 export default async function HomePage() {
-  const tours = await getActiveTours()
-  const featuredGrid = tours.slice(0, 6)
+  const [allTours, localTours, worldwideTours] = await Promise.all([
+    getAllActiveTours(),
+    getLocalTours(),
+    getWorldwideTours(),
+  ])
 
   return (
     <>
       <Header />
       <main className="flex-1">
-        <HeroTourCarousel tours={tours} />
+        <HeroTourCarousel tours={allTours} />
 
         {/* Stats trust bar */}
         <div className="bg-ocean-600 text-white">
@@ -82,8 +109,8 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Explore tours grid */}
-        {featuredGrid.length > 0 && (
+        {/* Local tours grid */}
+        {localTours.length > 0 && (
           <section className="py-16 px-4">
             <div className="max-w-5xl mx-auto">
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
@@ -94,7 +121,7 @@ export default async function HomePage() {
                   </p>
                 </div>
                 <Link
-                  href="/tours"
+                  href="/tours?type=local"
                   className="inline-flex items-center gap-1 text-ocean-600 hover:text-ocean-700 font-medium text-sm shrink-0 self-center sm:self-auto"
                 >
                   View all
@@ -104,7 +131,42 @@ export default async function HomePage() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {featuredGrid.map((tour, i) => (
+                {localTours.map((tour, i) => (
+                  <ScrollReveal key={tour.id} index={i}>
+                    <TourCard tour={tour} />
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Worldwide packages section */}
+        {worldwideTours.length > 0 && (
+          <section className="py-16 px-4 bg-gradient-to-b from-white to-ocean-50">
+            <div className="max-w-5xl mx-auto">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+                <div className="text-center sm:text-left">
+                  <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-1">
+                    International Travel
+                  </p>
+                  <h2 className="text-3xl font-bold text-gray-900">Worldwide Packages</h2>
+                  <p className="text-gray-500 mt-2 max-w-2xl">
+                    Multi-day international tours for families, seniors, and every kind of traveller.
+                  </p>
+                </div>
+                <Link
+                  href="/tours?type=worldwide"
+                  className="inline-flex items-center gap-1 text-ocean-600 hover:text-ocean-700 font-medium text-sm shrink-0 self-center sm:self-auto"
+                >
+                  View all packages
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {worldwideTours.map((tour, i) => (
                   <ScrollReveal key={tour.id} index={i}>
                     <TourCard tour={tour} />
                   </ScrollReveal>

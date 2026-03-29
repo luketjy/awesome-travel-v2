@@ -19,6 +19,8 @@ export default function TourFilters() {
 
   const currentCategory = searchParams.get('category') ?? ''
   const currentPrice = searchParams.get('price') ?? ''
+  const currentType = searchParams.get('type') ?? ''
+  const currentDestination = searchParams.get('destination') ?? ''
 
   const updateFilter = useCallback(
     (key: string, value: string) => {
@@ -33,7 +35,7 @@ export default function TourFilters() {
     [router, pathname, searchParams]
   )
 
-  const hasFilters = currentCategory || currentPrice
+  const hasFilters = currentCategory || currentPrice || currentDestination
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-4 flex flex-wrap gap-4 items-end">
@@ -68,10 +70,27 @@ export default function TourFilters() {
         </select>
       </div>
 
+      {currentType === 'worldwide' && (
+        <div className="flex-1 min-w-40">
+          <label className="block text-xs font-medium text-gray-500 mb-1.5">Destination</label>
+          <input
+            type="text"
+            value={currentDestination}
+            onChange={(e) => updateFilter('destination', e.target.value)}
+            placeholder="e.g. Japan"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ocean-500"
+          />
+        </div>
+      )}
+
       {hasFilters && (
         <button
           onClick={() => {
-            router.push(pathname)
+            const params = new URLSearchParams(searchParams.toString())
+            params.delete('category')
+            params.delete('price')
+            params.delete('destination')
+            router.push(`${pathname}?${params.toString()}`)
           }}
           className="text-sm text-ocean-600 hover:text-ocean-700 font-medium py-2"
         >

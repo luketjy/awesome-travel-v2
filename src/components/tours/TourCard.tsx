@@ -12,6 +12,15 @@ const categoryLabels: Record<string, string> = {
   'adventure': 'Adventure',
   'cultural': 'Cultural',
   'food-tour': 'Food Tour',
+  'beach': 'Beach',
+  'cruise': 'Cruise',
+  'wildlife': 'Wildlife',
+  'historical': 'Historical',
+  'luxury': 'Luxury',
+  'budget': 'Budget',
+  'honeymoon': 'Honeymoon',
+  'family': 'Family',
+  'pilgrimage': 'Pilgrimage',
 }
 
 function IconMapPin() {
@@ -51,6 +60,11 @@ export default function TourCard({ tour }: Props) {
           <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-ocean-700 text-xs font-semibold px-2.5 py-1 rounded-full">
             {categoryLabels[tour.category] ?? tour.category}
           </span>
+          {tour.tour_type === 'worldwide' && tour.destination && (
+            <span className="absolute top-3 right-3 bg-coral-500/90 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+              {tour.destination}
+            </span>
+          )}
         </div>
 
         <div className="p-4">
@@ -58,6 +72,16 @@ export default function TourCard({ tour }: Props) {
             {tour.name}
           </h3>
           <p className="text-gray-500 text-sm mt-1 line-clamp-2 leading-relaxed">{tour.description}</p>
+
+          {tour.suitability_tags && tour.suitability_tags.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-2">
+              {tour.suitability_tags.slice(0, 2).map((tag) => (
+                <span key={tag} className="text-xs bg-ocean-50 text-ocean-600 px-2 py-0.5 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-50">
             <div>
