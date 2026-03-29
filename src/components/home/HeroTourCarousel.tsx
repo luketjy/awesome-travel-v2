@@ -24,7 +24,7 @@ type Props = {
   tours: Tour[]
 }
 
-const AUTOPLAY_MS = 8000
+const AUTOPLAY_MS = 3000
 
 export default function HeroTourCarousel({ tours }: Props) {
   const [index, setIndex] = useState(0)
