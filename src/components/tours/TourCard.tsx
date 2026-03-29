@@ -14,10 +14,28 @@ const categoryLabels: Record<string, string> = {
   'food-tour': 'Food Tour',
 }
 
+function IconMapPin() {
+  return (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <circle cx="24" cy="20" r="8" stroke="currentColor" strokeWidth="2.5" />
+      <path d="M24 8C16.27 8 10 14.27 10 22c0 11.25 14 26 14 26s14-14.75 14-26C38 14.27 31.73 8 24 8z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function IconClock() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M7 4.5V7l2 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export default function TourCard({ tour }: Props) {
   return (
     <Link href={`/tours/${tour.slug}`} className="group block">
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:border-ocean-200 transition-all">
+      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:border-ocean-200 transition-all duration-200">
         <div className="relative h-48 overflow-hidden bg-ocean-50">
           {tour.images[0] ? (
             <img
@@ -26,7 +44,9 @@ export default function TourCard({ tour }: Props) {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-5xl">🗺️</div>
+            <div className="w-full h-full flex items-center justify-center text-ocean-200">
+              <IconMapPin />
+            </div>
           )}
           <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-ocean-700 text-xs font-semibold px-2.5 py-1 rounded-full">
             {categoryLabels[tour.category] ?? tour.category}
@@ -37,16 +57,16 @@ export default function TourCard({ tour }: Props) {
           <h3 className="font-bold text-gray-800 text-base group-hover:text-ocean-600 transition-colors line-clamp-1">
             {tour.name}
           </h3>
-          <p className="text-gray-500 text-sm mt-1 line-clamp-2">{tour.description}</p>
+          <p className="text-gray-500 text-sm mt-1 line-clamp-2 leading-relaxed">{tour.description}</p>
 
-          <div className="flex items-center justify-between mt-4">
+          <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-50">
             <div>
               <p className="text-xs text-gray-400">From</p>
               <p className="font-bold text-ocean-600 text-lg">{formatPrice(tour.price)}</p>
             </div>
-            <div className="text-right">
-              <p className="text-xs text-gray-400">Duration</p>
-              <p className="text-sm font-medium text-gray-700">{tour.duration}</p>
+            <div className="flex items-center gap-1.5 text-gray-500">
+              <IconClock />
+              <span className="text-sm font-medium">{tour.duration}</span>
             </div>
           </div>
         </div>

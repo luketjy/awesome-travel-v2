@@ -184,9 +184,9 @@ export default function HeroTourCarousel({ tours }: Props) {
             className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/30 bg-sandy-100/95 text-ocean-900 shadow-lg transition hover:bg-white hover:scale-105"
             aria-label="Previous tour"
           >
-            <span className="text-2xl leading-none font-bold" aria-hidden>
-              ‹
-            </span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M12.5 15l-5-5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
           <button
             type="button"
@@ -194,9 +194,9 @@ export default function HeroTourCarousel({ tours }: Props) {
             className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/30 bg-sandy-100/95 text-ocean-900 shadow-lg transition hover:bg-white hover:scale-105"
             aria-label="Next tour"
           >
-            <span className="text-2xl leading-none font-bold" aria-hidden>
-              ›
-            </span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M7.5 5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
           <div
             className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2"

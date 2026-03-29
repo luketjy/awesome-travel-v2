@@ -33,12 +33,13 @@ export default function HomeFaq() {
             >
               <summary className="cursor-pointer list-none py-4 font-semibold text-gray-800 flex items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
                 <span>{q}</span>
-                <span
-                  className="text-ocean-500 text-xl leading-none shrink-0 group-open:rotate-180 transition-transform"
-                  aria-hidden
+                <svg
+                  width="20" height="20" viewBox="0 0 20 20" fill="none"
+                  className="text-ocean-500 shrink-0 group-open:rotate-180 transition-transform duration-200"
+                  aria-hidden="true"
                 >
-                  ▼
-                </span>
+                  <path d="M5 7.5l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </summary>
               <div className="text-gray-600 text-sm leading-relaxed pb-4 pt-3 border-t border-gray-100">
                 {a}

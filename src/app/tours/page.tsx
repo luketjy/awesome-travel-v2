@@ -35,10 +35,11 @@ export default async function ToursPage({ searchParams }: PageProps) {
     <>
       <Header />
       <main className="flex-1">
-        <div className="bg-gradient-to-r from-ocean-600 to-teal-400 text-white py-12 px-4">
+        <div className="bg-gradient-to-br from-ocean-700 via-ocean-600 to-teal-500 text-white py-14 px-4">
           <div className="max-w-5xl mx-auto">
-            <h1 className="text-3xl font-bold mb-1">All Tours</h1>
-            <p className="text-ocean-100">Find and book your perfect experience</p>
+            <p className="text-ocean-200 text-sm font-semibold uppercase tracking-widest mb-2">Singapore &amp; Beyond</p>
+            <h1 className="text-4xl font-bold mb-2">All Tours</h1>
+            <p className="text-ocean-100 text-lg">Find and book your perfect experience</p>
           </div>
         </div>
 
@@ -48,9 +49,12 @@ export default async function ToursPage({ searchParams }: PageProps) {
           </Suspense>
 
           {tours.length === 0 ? (
-            <div className="text-center py-16 text-gray-500">
-              <p className="text-5xl mb-4">🔍</p>
-              <p className="font-medium">No tours match your filters.</p>
+            <div className="text-center py-16 text-gray-400">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="mx-auto mb-4" aria-hidden="true">
+                <circle cx="21" cy="21" r="13" stroke="currentColor" strokeWidth="2.5" />
+                <path d="M31 31l9 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+              <p className="font-medium text-gray-600">No tours match your filters.</p>
               <p className="text-sm mt-1">Try adjusting your search.</p>
             </div>
           ) : (
