@@ -50,7 +50,7 @@ export interface TourDate {
   available_spots?: number
 }
 
-export type BookingPaymentStatus = 'unpaid' | 'pending' | 'paid' | 'failed'
+export type BookingPaymentStatus = 'unpaid' | 'pending' | 'paid' | 'failed' | 'refunded' | 'pending_refund'
 
 export interface Booking {
   id: string
