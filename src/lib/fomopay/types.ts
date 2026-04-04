@@ -28,3 +28,24 @@ export interface FomoWebhookPayload {
   transactionId: string
   transactionNo?: string
 }
+
+export interface FomoRefundRequest {
+  type: 'REFUND'
+  transactionNo: string
+  amount: string
+  currencyCode: string
+  subject: string
+  originalId?: string
+}
+
+export interface FomoRefundTransaction {
+  id: string
+  type: 'REFUND'
+  originalId: string
+  transactionNo: string
+  subject: string
+  status: string
+  createdAt: number
+  amount: string
+  currencyCode: string
+}

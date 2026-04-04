@@ -1,6 +1,6 @@
 import { FOMO_PAY_API_BASE, getFomoCredentials } from './config'
 import { fomoBasicAuthHeader } from './auth'
-import type { FomoErrorBody, FomoHostedOrderSuccess, FomoOrderStatus } from './types'
+import type { FomoErrorBody, FomoHostedOrderSuccess, FomoOrderStatus, FomoRefundRequest, FomoRefundTransaction } from './types'
 
 async function parseJsonOrText(res: Response): Promise<unknown> {
   const text = await res.text()
@@ -192,6 +192,45 @@ export async function resolveOrderForBooking(
     return await getOrderById(first.id)
   } catch {
     return first
+  }
+}
+
+/**
+ * Create a refund transaction for an order.
+ * POST with PUT retry on 5xx (idempotency). On 409 (duplicate transactionNo) returns existing.
+ */
+export async function createRefundTransaction(
+  orderId: string,
+  body: FomoRefundRequest
+): Promise<FomoRefundTransaction> {
+  const path = `/api/orders/${encodeURIComponent(orderId)}/transactions`
+
+  try {
+    return await fomoRequestJson<FomoRefundTransaction>(path, {
+      method: 'POST',
+      body: JSON.stringify(body),
+    })
+  } catch (e) {
+    if (e instanceof FomoPayApiError && e.status >= 500) {
+      return fomoRequestJson<FomoRefundTransaction>(path, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+      })
+    }
+    if (e instanceof FomoPayApiError && e.status === 409) {
+      // Duplicate transactionNo — fetch the existing refund transaction
+      const q = new URLSearchParams({
+        filter: JSON.stringify({ transactionNo: body.transactionNo }),
+        range: JSON.stringify([0, 1]),
+        sort: JSON.stringify(['createdAt', 'DESC']),
+      })
+      const list = await fomoRequestJson<FomoRefundTransaction[]>(
+        `/api/orders/${encodeURIComponent(orderId)}/transactions?${q}`,
+        { method: 'GET' }
+      )
+      if (list[0]) return list[0]
+    }
+    throw e
   }
 }
 
