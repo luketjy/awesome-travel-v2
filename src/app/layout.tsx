@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SG Awesome Travels & Tours",
   description: "Discover amazing tours and travel experiences in Singapore and beyond.",
+  icons: {
+    icon: "/icon.jpeg",
+  },
 };
 
 export default function RootLayout({
