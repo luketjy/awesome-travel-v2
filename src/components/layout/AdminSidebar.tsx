@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation'
 const navItems = [
   { href: '/admin/bookings', label: 'Bookings', icon: '📋' },
   { href: '/admin/tours', label: 'Tours', icon: '🗺️' },
+  { href: '/admin/invoices', label: 'Invoices', icon: '🧾' },
 ]
 
 export default function AdminSidebar() {

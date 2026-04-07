@@ -11,6 +11,7 @@ import {
   resolveOrderForBooking,
 } from '@/lib/fomopay/client'
 import ReturnPageRefresh from '@/components/booking/ReturnPageRefresh'
+import { createInvoice } from '@/lib/invoice/create'
 
 interface PageProps {
   searchParams: Promise<{ bookingId?: string }>
@@ -56,6 +57,9 @@ export default async function PaymentReturnPage({ searchParams }: PageProps) {
               status: 'confirmed',
             })
             .eq('id', bookingId)
+          createInvoice(bookingId).catch((err) =>
+            console.error('[payment return] createInvoice error', err)
+          )
         } else if (
           order.status === 'FAIL' ||
           order.status === 'ERROR' ||

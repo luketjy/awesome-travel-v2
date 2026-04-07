@@ -3,6 +3,7 @@ import { createServerClient } from '@/lib/supabase/server'
 import { getOrderById, isOrderPaidAtGateway } from '@/lib/fomopay/client'
 import { verifyFomoWebhook } from '@/lib/fomopay/webhook'
 import type { FomoWebhookPayload } from '@/lib/fomopay/types'
+import { createInvoice } from '@/lib/invoice/create'
 
 export const dynamic = 'force-dynamic'
 
@@ -78,6 +79,13 @@ export async function POST(req: NextRequest) {
       bookingId
     )
     return Response.json({ error: 'booking_not_found' }, { status: 500 })
+  }
+
+  if (saleSucceeded) {
+    // Fire-and-forget — do not let invoice errors fail the webhook response
+    createInvoice(bookingId).catch((err) =>
+      console.error('[fomopay webhook] createInvoice error', err)
+    )
   }
 
   return new Response(null, { status: 200 })
