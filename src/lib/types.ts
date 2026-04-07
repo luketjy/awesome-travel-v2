@@ -23,6 +23,7 @@ export interface Tour {
   duration: string
   images: string[]
   is_active: boolean
+  sort_order: number
   created_at: string
   updated_at: string
   tour_type?: TourType

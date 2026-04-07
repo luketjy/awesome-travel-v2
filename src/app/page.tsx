@@ -17,7 +17,7 @@ async function getLocalTours(): Promise<Tour[]> {
     .select('*')
     .eq('is_active', true)
     .or('tour_type.eq.local,tour_type.is.null')
-    .order('created_at', { ascending: false })
+    .order('sort_order', { ascending: true })
     .limit(6)
   return data ?? []
 }
@@ -29,7 +29,7 @@ async function getWorldwideTours(): Promise<Tour[]> {
     .select('*')
     .eq('is_active', true)
     .eq('tour_type', 'worldwide')
-    .order('created_at', { ascending: false })
+    .order('sort_order', { ascending: true })
     .limit(6)
   return data ?? []
 }
@@ -40,7 +40,7 @@ async function getAllActiveTours(): Promise<Tour[]> {
     .from('tours')
     .select('*')
     .eq('is_active', true)
-    .order('created_at', { ascending: false })
+    .order('sort_order', { ascending: true })
     .limit(24)
   return data ?? []
 }

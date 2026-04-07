@@ -34,7 +34,7 @@ async function getTours(category?: string, price?: string, type?: string, destin
     query = query.ilike('destination', `%${destination}%`)
   }
 
-  const { data } = await query.order('name')
+  const { data } = await query.order('sort_order', { ascending: true })
   return data ?? []
 }
 

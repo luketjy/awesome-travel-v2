@@ -7,7 +7,7 @@ export async function GET() {
   const { data, error } = await supabase
     .from('tours')
     .select('*')
-    .order('created_at', { ascending: false })
+    .order('sort_order', { ascending: true })
 
   if (error) return Response.json({ error: error.message }, { status: 500 })
   return Response.json(data)
