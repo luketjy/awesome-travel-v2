@@ -38,7 +38,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-3 min-w-0">
           <SiteLogo className="h-11 w-11 sm:h-12 sm:w-12" />
           <div className="leading-tight min-w-0">
-            <p className="font-bold text-ocean-600 text-sm truncate">SG Awesome</p>
+            <p className="font-bold text-ocean-600 text-sm truncate">Awesome</p>
             <p className="text-gray-500 text-xs truncate">Travels & Tours</p>
           </div>
         </Link>
