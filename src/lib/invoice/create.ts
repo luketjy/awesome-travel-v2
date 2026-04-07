@@ -1,4 +1,4 @@
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 import { createServerClient } from '@/lib/supabase/server'
 import { renderInvoiceHtml } from '@/lib/invoice/template'
 
@@ -78,10 +78,11 @@ export async function createInvoice(bookingId: string): Promise<void> {
     return
   }
 
-  // Send email
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) {
-    console.warn('[invoice] RESEND_API_KEY not set — skipping email')
+  // Send email via Gmail SMTP
+  const gmailUser = process.env.GMAIL_USER
+  const gmailAppPassword = process.env.GMAIL_APP_PASSWORD
+  if (!gmailUser || !gmailAppPassword) {
+    console.warn('[invoice] GMAIL_USER / GMAIL_APP_PASSWORD not set — skipping email')
     return
   }
 
@@ -100,18 +101,20 @@ export async function createInvoice(bookingId: string): Promise<void> {
     transactionRef: booking.fomo_order_id,
   })
 
-  const from = process.env.RESEND_FROM_EMAIL ?? 'Awesome Travel <invoices@sgawesometravel.com>'
-
-  const resend = new Resend(apiKey)
-  const { error: emailErr } = await resend.emails.send({
-    from,
-    to: booking.customer_email,
-    subject: `Your Invoice ${invoice.invoice_number} – ${tourName}`,
-    html,
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user: gmailUser, pass: gmailAppPassword },
   })
 
-  if (emailErr) {
-    console.error('[invoice] email send failed', emailErr)
+  try {
+    await transporter.sendMail({
+      from: `"Awesome Travel & Tour" <${gmailUser}>`,
+      to: booking.customer_email,
+      subject: `Your Invoice ${invoice.invoice_number} – ${tourName}`,
+      html,
+    })
+  } catch (err) {
+    console.error('[invoice] email send failed', err)
     return
   }
 
