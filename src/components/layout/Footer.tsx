@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="bg-ocean-700 text-ocean-100 pt-14 pb-8 mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-10 pb-10">
 
           {/* Brand */}
           <div className="sm:col-span-1">
@@ -34,6 +34,17 @@ export default function Footer() {
               <li><Link href="/tours" className="hover:text-white transition-colors">All Tours</Link></li>
               <li><Link href="/booking" className="hover:text-white transition-colors">Book a Tour</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <p className="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Legal</p>
+            <ul className="space-y-2.5 text-sm">
+              <li><Link href="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</Link></li>
+              <li><Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/refund-policy" className="hover:text-white transition-colors">Refund &amp; Cancellation</Link></li>
+              <li><Link href="/delivery-policy" className="hover:text-white transition-colors">Delivery Policy</Link></li>
             </ul>
           </div>
 
@@ -64,9 +75,14 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-ocean-600 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ocean-300">
-          <p>© {new Date().getFullYear()} SG Awesome Travels &amp; Tours. All rights reserved.</p>
-          <p>Singapore Tourism &amp; Heritage Experiences</p>
+        <div className="pt-6 border-t border-ocean-600 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ocean-300">
+          <p>© {new Date().getFullYear()} Awesome Travel and Tour Pte. Ltd. (UEN 202519348N). All rights reserved.</p>
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link href="/refund-policy" className="hover:text-white transition-colors">Refunds</Link>
+            <Link href="/delivery-policy" className="hover:text-white transition-colors">Delivery</Link>
+          </div>
         </div>
       </div>
     </footer>
