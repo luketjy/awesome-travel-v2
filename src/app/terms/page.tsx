@@ -9,12 +9,12 @@ export default function TermsPage() {
   return (
     <>
       <Header />
-      <main className="flex-1">
-        <div className="bg-gradient-to-br from-ocean-700 via-ocean-600 to-teal-500 text-white py-12 px-4">
+      <main className="flex-1 bg-warm-50">
+        <div className="bg-gradient-to-br from-ocean-800 via-ocean-700 to-teal-500 text-white py-14 px-4">
           <div className="max-w-3xl mx-auto">
-            <h1 className="text-3xl font-bold">Terms &amp; Conditions</h1>
-            <p className="text-ocean-200 text-sm mt-1">Awesome Travel and Tour Pte. Ltd. &nbsp;·&nbsp; UEN 202519348N</p>
-            <p className="text-ocean-200 text-sm mt-1">Last Updated: 6 April 2026</p>
+            <h1 className="text-3xl sm:text-4xl font-bold">Terms &amp; Conditions</h1>
+            <p className="text-ocean-200/80 text-sm mt-2">Awesome Travel and Tour Pte. Ltd. &nbsp;·&nbsp; UEN 202519348N</p>
+            <p className="text-ocean-200/80 text-sm mt-1">Last Updated: 6 April 2026</p>
           </div>
         </div>
 

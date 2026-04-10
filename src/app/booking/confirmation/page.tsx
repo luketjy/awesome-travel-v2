@@ -41,11 +41,16 @@ export default async function ConfirmationPage({ searchParams }: PageProps) {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-gray-50">
+      <main className="flex-1 bg-warm-50">
         <div className="max-w-lg mx-auto px-4 py-16 text-center">
-          <div className="text-6xl mb-4">🎉</div>
+          {/* Success icon */}
+          <div className={`w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center ${
+            isPaid ? 'bg-green-100' : 'bg-ocean-50'
+          }`}>
+            <span className="text-4xl">{isPaid ? '✓' : '📋'}</span>
+          </div>
           <h1 className="text-2xl font-bold text-gray-800 mb-2">
-            {isPaid ? 'Booking confirmed' : 'Booking saved'}
+            {isPaid ? 'Booking confirmed!' : 'Booking saved'}
           </h1>
           <p className="text-gray-500 mb-8">
             Thank you, {booking.customer_name}!
@@ -54,10 +59,10 @@ export default async function ConfirmationPage({ searchParams }: PageProps) {
               : ' Complete payment below to secure your spot.'}
           </p>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-left space-y-4 mb-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-left space-y-4 mb-8">
             <div className="flex justify-between text-sm">
               <span className="text-gray-500">Booking ID</span>
-              <span className="font-mono text-gray-700 text-xs">{booking.id}</span>
+              <span className="font-mono text-gray-600 text-xs bg-gray-50 px-2 py-0.5 rounded">{booking.id}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-gray-500">Tour</span>
@@ -73,15 +78,15 @@ export default async function ConfirmationPage({ searchParams }: PageProps) {
               <span className="text-gray-500">Guests</span>
               <span className="text-gray-800">{booking.num_pax} pax</span>
             </div>
-            <div className="flex justify-between text-sm border-t border-gray-100 pt-3 mt-3">
+            <div className="flex justify-between text-sm border-t border-gray-100 pt-4 mt-4">
               <span className="font-semibold text-gray-700">Total</span>
-              <span className="font-bold text-ocean-600 text-lg">
+              <span className="font-bold text-ocean-600 text-xl">
                 {formatPrice(booking.total_price)}
               </span>
             </div>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-6">
             <FomoPayButton
               bookingId={booking.id}
               paid={isPaid}
@@ -89,8 +94,11 @@ export default async function ConfirmationPage({ searchParams }: PageProps) {
             />
           </div>
 
-          <Link href="/tours" className="text-ocean-600 hover:text-ocean-700 text-sm font-medium">
-            ← Browse more tours
+          <Link href="/tours" className="text-ocean-600 hover:text-ocean-700 text-sm font-medium inline-flex items-center gap-1">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M10 3l-5 5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Browse more tours
           </Link>
         </div>
       </main>

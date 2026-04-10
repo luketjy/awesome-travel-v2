@@ -71,41 +71,48 @@ export default async function TourDetailPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 bg-warm-50">
         {/* Hero image */}
-        <div className="relative h-64 sm:h-80 bg-ocean-100 overflow-hidden">
+        <div className="relative h-72 sm:h-96 bg-ocean-100 overflow-hidden">
           {tour.images[0] ? (
             <img src={tour.images[0]} alt={tour.name} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-7xl">🗺️</div>
+            <div className="w-full h-full flex items-center justify-center text-7xl bg-gradient-to-br from-ocean-100 to-ocean-200">🗺️</div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 px-6 py-5 text-white">
-            <span className="bg-white/20 backdrop-blur-sm text-xs font-semibold px-2.5 py-1 rounded-full mb-2 inline-block">
-              {categoryLabels[tour.category] ?? tour.category}
-            </span>
-            <h1 className="text-3xl font-bold">{tour.name}</h1>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 px-6 pb-6 pt-10 text-white">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center gap-2 mb-3">
+                <Link href="/tours" className="text-white/70 hover:text-white text-sm transition-colors">Tours</Link>
+                <span className="text-white/40">/</span>
+                <span className="text-white/90 text-sm">{tour.name}</span>
+              </div>
+              <span className="bg-white/20 backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full mb-3 inline-block">
+                {categoryLabels[tour.category] ?? tour.category}
+              </span>
+              <h1 className="text-3xl sm:text-4xl font-bold drop-shadow-sm">{tour.name}</h1>
+            </div>
           </div>
         </div>
 
         <div className="max-w-4xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Details */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-8">
             {/* Quick stats */}
-            <div className="flex flex-wrap gap-6 text-sm text-gray-600">
+            <div className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-wrap gap-6 text-sm text-gray-600">
               <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide">Duration</p>
+                <p className="text-[11px] text-gray-400 uppercase tracking-wide font-medium">Duration</p>
                 <p className="font-semibold text-gray-800 mt-0.5">{tour.duration}</p>
               </div>
               {isWorldwide && tour.destination && (
                 <div>
-                  <p className="text-xs text-gray-400 uppercase tracking-wide">Destination</p>
+                  <p className="text-[11px] text-gray-400 uppercase tracking-wide font-medium">Destination</p>
                   <p className="font-semibold text-gray-800 mt-0.5">{tour.destination}</p>
                 </div>
               )}
               {!isWorldwide && (
                 <div>
-                  <p className="text-xs text-gray-400 uppercase tracking-wide">Price per pax</p>
+                  <p className="text-[11px] text-gray-400 uppercase tracking-wide font-medium">Price per pax</p>
                   <p className="font-semibold text-ocean-600 text-lg mt-0.5">
                     {formatPrice(tour.price)}
                   </p>
@@ -113,15 +120,15 @@ export default async function TourDetailPage({ params }: Props) {
               )}
               {isWorldwide && tour.difficulty && (
                 <div>
-                  <p className="text-xs text-gray-400 uppercase tracking-wide">Difficulty</p>
-                  <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full mt-0.5 ${difficultyColors[tour.difficulty] ?? 'bg-gray-100 text-gray-600'}`}>
+                  <p className="text-[11px] text-gray-400 uppercase tracking-wide font-medium">Difficulty</p>
+                  <span className={`inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full mt-0.5 ${difficultyColors[tour.difficulty] ?? 'bg-gray-100 text-gray-600'}`}>
                     {difficultyLabels[tour.difficulty] ?? tour.difficulty}
                   </span>
                 </div>
               )}
               {isWorldwide && (tour.min_pax || tour.max_pax) && (
                 <div>
-                  <p className="text-xs text-gray-400 uppercase tracking-wide">Group Size</p>
+                  <p className="text-[11px] text-gray-400 uppercase tracking-wide font-medium">Group Size</p>
                   <p className="font-semibold text-gray-800 mt-0.5">
                     {tour.min_pax && tour.max_pax
                       ? `${tour.min_pax}–${tour.max_pax} pax`
@@ -137,7 +144,7 @@ export default async function TourDetailPage({ params }: Props) {
             {isWorldwide && tour.suitability_tags && tour.suitability_tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {tour.suitability_tags.map((tag: string) => (
-                  <span key={tag} className="text-xs bg-ocean-50 text-ocean-600 border border-ocean-100 px-3 py-1 rounded-full font-medium">
+                  <span key={tag} className="text-xs bg-ocean-50 text-ocean-600 border border-ocean-100 px-3 py-1.5 rounded-full font-medium">
                     {tag}
                   </span>
                 ))}
@@ -145,8 +152,8 @@ export default async function TourDetailPage({ params }: Props) {
             )}
 
             {/* About */}
-            <div>
-              <h2 className="font-bold text-gray-800 text-lg mb-2">About this {isWorldwide ? 'package' : 'tour'}</h2>
+            <div className="bg-white rounded-2xl border border-gray-100 p-6">
+              <h2 className="font-bold text-gray-800 text-lg mb-3">About this {isWorldwide ? 'package' : 'tour'}</h2>
               <p className="text-gray-600 leading-relaxed whitespace-pre-line">
                 {tour.description}
               </p>
@@ -154,12 +161,12 @@ export default async function TourDetailPage({ params }: Props) {
 
             {/* Highlights */}
             {isWorldwide && tour.highlights && tour.highlights.length > 0 && (
-              <div>
-                <h2 className="font-bold text-gray-800 text-lg mb-3">Highlights</h2>
-                <ul className="space-y-2">
+              <div className="bg-white rounded-2xl border border-gray-100 p-6">
+                <h2 className="font-bold text-gray-800 text-lg mb-4">Highlights</h2>
+                <ul className="space-y-3">
                   {tour.highlights.map((h: string, i: number) => (
-                    <li key={i} className="flex items-start gap-2 text-gray-600 text-sm">
-                      <span className="text-ocean-500 mt-0.5 shrink-0 font-bold">✓</span>
+                    <li key={i} className="flex items-start gap-3 text-gray-600 text-sm">
+                      <span className="flex items-center justify-center w-5 h-5 rounded-full bg-ocean-50 text-ocean-500 mt-0.5 shrink-0 text-xs font-bold">✓</span>
                       {h}
                     </li>
                   ))}
@@ -171,9 +178,9 @@ export default async function TourDetailPage({ params }: Props) {
             {isWorldwide && (tour.inclusions?.length || tour.exclusions?.length) ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {tour.inclusions && tour.inclusions.length > 0 && (
-                  <div className="bg-green-50 border border-green-100 rounded-xl p-4">
+                  <div className="bg-green-50 border border-green-100 rounded-2xl p-5">
                     <h3 className="font-semibold text-green-800 text-sm mb-3">Inclusions</h3>
-                    <ul className="space-y-1.5">
+                    <ul className="space-y-2">
                       {tour.inclusions.map((item: string, i: number) => (
                         <li key={i} className="flex items-start gap-2 text-green-700 text-sm">
                           <span className="shrink-0 mt-0.5">✓</span>
@@ -184,9 +191,9 @@ export default async function TourDetailPage({ params }: Props) {
                   </div>
                 )}
                 {tour.exclusions && tour.exclusions.length > 0 && (
-                  <div className="bg-red-50 border border-red-100 rounded-xl p-4">
+                  <div className="bg-red-50 border border-red-100 rounded-2xl p-5">
                     <h3 className="font-semibold text-red-800 text-sm mb-3">Exclusions</h3>
-                    <ul className="space-y-1.5">
+                    <ul className="space-y-2">
                       {tour.exclusions.map((item: string, i: number) => (
                         <li key={i} className="flex items-start gap-2 text-red-700 text-sm">
                           <span className="shrink-0 mt-0.5">✕</span>
@@ -210,7 +217,7 @@ export default async function TourDetailPage({ params }: Props) {
 
           {/* Booking / Enquiry panel */}
           <div className="lg:col-span-1 scroll-mt-24" id="book">
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 sticky top-24">
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sticky top-24">
               {tour.enquiry_only ? (
                 /* Enquiry CTA */
                 <div className="text-center space-y-4">
@@ -227,7 +234,7 @@ export default async function TourDetailPage({ params }: Props) {
                     </p>
                   </div>
                   {isWorldwide && tour.pricing_options && (
-                    <div className="bg-ocean-50 rounded-xl p-3 text-left space-y-1">
+                    <div className="bg-ocean-50 rounded-xl p-4 text-left space-y-2">
                       <p className="text-xs font-semibold text-ocean-600 uppercase tracking-wide mb-2">Pricing (per pax)</p>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Twin Sharing</span>
@@ -249,7 +256,7 @@ export default async function TourDetailPage({ params }: Props) {
                   )}
                   <Link
                     href="/contact"
-                    className="block w-full bg-ocean-500 hover:bg-ocean-600 text-white font-semibold px-4 py-3 rounded-xl text-sm transition-colors text-center"
+                    className="block w-full bg-ocean-500 hover:bg-ocean-600 text-white font-semibold px-4 py-3 rounded-xl text-sm transition-all text-center hover:shadow-md active:scale-[0.98]"
                   >
                     Contact Us to Book
                   </Link>
@@ -258,7 +265,7 @@ export default async function TourDetailPage({ params }: Props) {
                 /* Date booking panel */
                 <>
                   {isWorldwide && tour.pricing_options && (
-                    <div className="bg-ocean-50 rounded-xl p-3 mb-4 space-y-1">
+                    <div className="bg-ocean-50 rounded-xl p-4 mb-5 space-y-2">
                       <p className="text-xs font-semibold text-ocean-600 uppercase tracking-wide mb-2">Pricing (per pax)</p>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Twin Sharing</span>
@@ -281,9 +288,12 @@ export default async function TourDetailPage({ params }: Props) {
                   <h2 className="font-bold text-gray-800 text-lg mb-4">Select a Date</h2>
 
                   {availableDates.length === 0 ? (
-                    <p className="text-gray-500 text-sm">
-                      No available dates right now. Check back soon!
-                    </p>
+                    <div className="text-center py-6">
+                      <p className="text-gray-500 text-sm">
+                        No available dates right now.
+                      </p>
+                      <p className="text-gray-400 text-xs mt-1">Check back soon!</p>
+                    </div>
                   ) : (
                     <div className="space-y-2">
                       {availableDates.map((d) => {
@@ -297,7 +307,7 @@ export default async function TourDetailPage({ params }: Props) {
                               </p>
                             </div>
                             {!isFull && (
-                              <span className="text-ocean-500 text-sm font-semibold">Book →</span>
+                              <span className="text-ocean-500 text-sm font-semibold group-hover:translate-x-0.5 transition-transform">Book →</span>
                             )}
                           </>
                         )
@@ -312,7 +322,7 @@ export default async function TourDetailPage({ params }: Props) {
                           <Link
                             key={d.id}
                             href={`/booking?tourId=${tour.id}&dateId=${d.id}`}
-                            className="flex items-center justify-between p-3 rounded-xl border border-ocean-200 hover:border-ocean-400 hover:bg-ocean-50 transition-all"
+                            className="group flex items-center justify-between p-3 rounded-xl border border-gray-200 hover:border-ocean-400 hover:bg-ocean-50 transition-all"
                           >
                             {inner}
                           </Link>
@@ -329,19 +339,19 @@ export default async function TourDetailPage({ params }: Props) {
         {/* Itinerary — full width below grid */}
         {isWorldwide && tour.itinerary && tour.itinerary.length > 0 && (
           <div className="max-w-4xl mx-auto px-4 pb-16">
-            <h2 className="font-bold text-gray-800 text-2xl mb-6">Day-by-Day Itinerary</h2>
+            <h2 className="font-bold text-gray-800 text-2xl mb-8">Day-by-Day Itinerary</h2>
             <div className="space-y-0">
               {tour.itinerary.map((day: { day: number; title: string; description: string }, i: number) => (
                 <div key={i} className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div className="w-10 h-10 rounded-full bg-ocean-500 text-white flex items-center justify-center font-bold text-sm shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-ocean-500 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
                       {day.day}
                     </div>
                     {i < tour.itinerary!.length - 1 && (
                       <div className="w-0.5 flex-1 bg-ocean-100 my-1" />
                     )}
                   </div>
-                  <div className="flex-1 pb-6">
+                  <div className="flex-1 pb-8">
                     <h3 className="font-semibold text-gray-800 mt-2">{day.title}</h3>
                     <p className="text-gray-600 text-sm mt-1 leading-relaxed">{day.description}</p>
                   </div>

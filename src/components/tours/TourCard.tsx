@@ -44,53 +44,55 @@ function IconClock() {
 export default function TourCard({ tour }: Props) {
   return (
     <Link href={`/tours/${tour.slug}`} className="group block">
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md hover:border-ocean-200 transition-all duration-200">
-        <div className="relative h-48 overflow-hidden bg-ocean-50">
+      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg hover:border-ocean-200/60 transition-all duration-300 hover:-translate-y-1">
+        <div className="relative h-52 overflow-hidden bg-ocean-50">
           {tour.images[0] ? (
             <img
               src={tour.images[0]}
               alt={tour.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-500 ease-out"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-ocean-200">
               <IconMapPin />
             </div>
           )}
-          <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-ocean-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+          {/* Gradient overlay on hover */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-ocean-700 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
             {categoryLabels[tour.category] ?? tour.category}
           </span>
           {tour.tour_type === 'worldwide' && tour.destination && (
-            <span className="absolute top-3 right-3 bg-coral-500/90 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+            <span className="absolute top-3 right-3 bg-coral-500/90 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
               {tour.destination}
             </span>
           )}
         </div>
 
-        <div className="p-4">
+        <div className="p-5">
           <h3 className="font-bold text-gray-800 text-base group-hover:text-ocean-600 transition-colors line-clamp-1">
             {tour.name}
           </h3>
-          <p className="text-gray-500 text-sm mt-1 line-clamp-2 leading-relaxed">{tour.description}</p>
+          <p className="text-gray-500 text-sm mt-1.5 line-clamp-2 leading-relaxed">{tour.description}</p>
 
           {tour.suitability_tags && tour.suitability_tags.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-2">
+            <div className="flex flex-wrap gap-1.5 mt-3">
               {tour.suitability_tags.slice(0, 2).map((tag) => (
-                <span key={tag} className="text-xs bg-ocean-50 text-ocean-600 px-2 py-0.5 rounded-full">
+                <span key={tag} className="text-xs bg-ocean-50 text-ocean-600 px-2 py-0.5 rounded-full font-medium">
                   {tag}
                 </span>
               ))}
             </div>
           )}
 
-          <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-50">
+          <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
             <div>
-              <p className="text-xs text-gray-400">From</p>
+              <p className="text-[11px] text-gray-400 uppercase tracking-wide">From</p>
               <p className="font-bold text-ocean-600 text-lg">{formatPrice(tour.price)}</p>
             </div>
-            <div className="flex items-center gap-1.5 text-gray-500">
+            <div className="flex items-center gap-1.5 text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full">
               <IconClock />
-              <span className="text-sm font-medium">{tour.duration}</span>
+              <span className="text-sm font-medium text-gray-600">{tour.duration}</span>
             </div>
           </div>
         </div>

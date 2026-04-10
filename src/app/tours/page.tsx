@@ -51,16 +51,20 @@ export default async function ToursPage({ searchParams }: PageProps) {
   return (
     <>
       <Header />
-      <main className="flex-1">
-        <div className="bg-gradient-to-br from-ocean-700 via-ocean-600 to-teal-500 text-white py-14 px-4">
-          <div className="max-w-5xl mx-auto">
-            <p className="text-ocean-200 text-sm font-semibold uppercase tracking-widest mb-2">Singapore &amp; Worldwide</p>
-            <h1 className="text-4xl font-bold mb-2">All Tours &amp; Packages</h1>
-            <p className="text-ocean-100 text-lg">Find and book your perfect experience</p>
+      <main className="flex-1 bg-warm-50">
+        {/* Hero banner */}
+        <div className="bg-gradient-to-br from-ocean-800 via-ocean-700 to-teal-500 text-white py-16 sm:py-20 px-4 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-sandy-300 blur-3xl" />
+          </div>
+          <div className="max-w-5xl mx-auto relative">
+            <p className="text-ocean-200 text-sm font-semibold uppercase tracking-widest mb-3">Singapore &amp; Worldwide</p>
+            <h1 className="text-4xl sm:text-5xl font-bold mb-3">All Tours &amp; Packages</h1>
+            <p className="text-ocean-100/80 text-lg max-w-xl">Find and book your perfect experience</p>
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+        <div className="max-w-5xl mx-auto px-4 py-10 space-y-6">
           {/* Type tabs */}
           <div className="flex gap-2 flex-wrap">
             {tabs.map((tab) => {
@@ -71,10 +75,10 @@ export default async function ToursPage({ searchParams }: PageProps) {
                 <Link
                   key={tab.value}
                   href={`/tours${params.toString() ? `?${params.toString()}` : ''}`}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-ocean-500 text-white shadow-sm'
-                      : 'bg-white border border-gray-200 text-gray-600 hover:border-ocean-300 hover:text-ocean-600'
+                      ? 'bg-ocean-500 text-white shadow-md'
+                      : 'bg-white border border-gray-200 text-gray-600 hover:border-ocean-300 hover:text-ocean-600 hover:shadow-sm'
                   }`}
                 >
                   {tab.label}
@@ -88,13 +92,15 @@ export default async function ToursPage({ searchParams }: PageProps) {
           </Suspense>
 
           {tours.length === 0 ? (
-            <div className="text-center py-16 text-gray-400">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="mx-auto mb-4" aria-hidden="true">
-                <circle cx="21" cy="21" r="13" stroke="currentColor" strokeWidth="2.5" />
-                <path d="M31 31l9 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-              </svg>
-              <p className="font-medium text-gray-600">No tours match your filters.</p>
-              <p className="text-sm mt-1">Try adjusting your search.</p>
+            <div className="text-center py-20 text-gray-400">
+              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                <svg width="32" height="32" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <circle cx="21" cy="21" r="13" stroke="currentColor" strokeWidth="2.5" />
+                  <path d="M31 31l9 9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                </svg>
+              </div>
+              <p className="font-semibold text-gray-600 text-lg">No tours match your filters.</p>
+              <p className="text-sm mt-1 text-gray-400">Try adjusting your search criteria.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

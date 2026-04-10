@@ -4,7 +4,7 @@ import Link from 'next/link'
 import SiteLogo from '@/components/layout/SiteLogo'
 import TranslateToggle from '@/components/ui/TranslateToggle'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -31,37 +31,55 @@ function IconX() {
 export default function Header() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 8)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100'
+          : 'bg-white border-b border-gray-100/80'
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-3 min-w-0">
-          <SiteLogo className="h-11 w-11 sm:h-12 sm:w-12" />
+        <Link href="/" className="flex items-center gap-3 min-w-0 group">
+          <SiteLogo className="h-11 w-11 sm:h-12 sm:w-12 transition-transform duration-200 group-hover:scale-105" />
           <div className="leading-tight min-w-0">
             <p className="font-bold text-ocean-600 text-sm truncate">Awesome</p>
-            <p className="text-gray-500 text-xs truncate">Travels & Tours</p>
+            <p className="text-gray-400 text-xs truncate">Travels & Tours</p>
           </div>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden sm:flex items-center gap-6">
+        <nav className="hidden sm:flex items-center gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors relative pb-0.5 ${
+              className={`text-sm font-medium transition-colors px-3 py-2 rounded-lg ${
                 pathname === link.href
-                  ? 'text-ocean-600 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-ocean-500 after:rounded-full'
-                  : 'text-gray-600 hover:text-ocean-600'
+                  ? 'text-ocean-600 bg-ocean-50'
+                  : 'text-gray-600 hover:text-ocean-600 hover:bg-gray-50'
               }`}
             >
               {link.label}
             </Link>
           ))}
-          <TranslateToggle />
+          <div className="ml-2">
+            <TranslateToggle />
+          </div>
           <Link
             href="/tours"
-            className="bg-ocean-500 hover:bg-ocean-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+            className="ml-2 bg-ocean-500 hover:bg-ocean-600 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-all hover:shadow-md active:scale-[0.98]"
           >
             Book Now
           </Link>
@@ -80,7 +98,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="sm:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-1">
+        <div className="sm:hidden border-t border-gray-100 bg-white/95 backdrop-blur-md px-4 py-3 space-y-1 animate-[fadeIn_0.15s_ease]">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -95,7 +113,7 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
-          <div className="pt-1">
+          <div className="pt-2">
             <Link
               href="/tours"
               onClick={() => setMenuOpen(false)}

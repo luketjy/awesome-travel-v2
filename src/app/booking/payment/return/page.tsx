@@ -96,11 +96,15 @@ export default async function PaymentReturnPage({ searchParams }: PageProps) {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-gray-50">
+      <main className="flex-1 bg-warm-50">
         <div className="max-w-lg mx-auto px-4 py-16 text-center">
           {finalPay === 'paid' ? (
             <>
-              <div className="text-5xl mb-4">✓</div>
+              <div className="w-20 h-20 rounded-full bg-green-100 mx-auto mb-6 flex items-center justify-center">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="text-green-600">
+                  <path d="M12 20l6 6 12-12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
               <h1 className="text-2xl font-bold text-gray-800 mb-2">Payment successful</h1>
               <p className="text-gray-600 mb-8">
                 Thank you! Your payment for {tourName} is confirmed.
@@ -108,7 +112,11 @@ export default async function PaymentReturnPage({ searchParams }: PageProps) {
             </>
           ) : finalPay === 'failed' ? (
             <>
-              <div className="text-5xl mb-4">✕</div>
+              <div className="w-20 h-20 rounded-full bg-red-100 mx-auto mb-6 flex items-center justify-center">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="text-red-500">
+                  <path d="M14 14l12 12M26 14L14 26" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                </svg>
+              </div>
               <h1 className="text-2xl font-bold text-gray-800 mb-2">Payment did not complete</h1>
               <p className="text-gray-600 mb-8">
                 The payment was cancelled or declined. You can try again from your booking summary.
@@ -117,17 +125,18 @@ export default async function PaymentReturnPage({ searchParams }: PageProps) {
           ) : (
             <>
               <ReturnPageRefresh />
-              <div className="text-5xl mb-4">…</div>
+              <div className="w-20 h-20 rounded-full bg-ocean-50 mx-auto mb-6 flex items-center justify-center">
+                <div className="w-8 h-8 border-3 border-ocean-200 border-t-ocean-500 rounded-full animate-spin" />
+              </div>
               <h1 className="text-2xl font-bold text-gray-800 mb-2">Processing payment</h1>
               <p className="text-gray-600 mb-6">
                 Your bank or wallet may still be confirming the payment. This page refreshes every few
-                seconds for up to two minutes. You can also open your booking summary — it will update
-                when we receive confirmation from the payment gateway.
+                seconds for up to two minutes.
               </p>
               <p className="text-gray-500 text-sm mb-8">
                 In UAT / sandbox, status can lag on FOMO Pay&apos;s side. If it never clears, confirm
                 your app uses the same environment as your credentials (set{' '}
-                <code className="text-xs bg-gray-100 px-1 rounded">FOMO_PAY_API_BASE</code> if FOMO gave
+                <code className="text-xs bg-gray-100 px-1.5 py-0.5 rounded">FOMO_PAY_API_BASE</code> if FOMO gave
                 you a separate test host) and that your public site URL matches where you are testing.
               </p>
             </>
@@ -135,7 +144,7 @@ export default async function PaymentReturnPage({ searchParams }: PageProps) {
 
           <Link
             href={`/booking/confirmation?bookingId=${encodeURIComponent(bookingId)}`}
-            className="inline-block w-full bg-ocean-600 hover:bg-ocean-700 text-white font-bold py-3 rounded-xl transition-colors"
+            className="inline-block w-full bg-ocean-600 hover:bg-ocean-700 text-white font-bold py-3 rounded-xl transition-all hover:shadow-md active:scale-[0.98]"
           >
             Back to booking summary
           </Link>

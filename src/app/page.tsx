@@ -78,10 +78,10 @@ const features = [
 ]
 
 const stats = [
-  { value: '4-hr', label: 'Walking tours' },
-  { value: '5★', label: 'Guest experience' },
-  { value: 'EN & 中文', label: 'Bilingual guides' },
-  { value: 'Worldwide', label: 'Destinations' },
+  { value: '4-hr', label: 'Walking tours', icon: '🚶' },
+  { value: '5★', label: 'Guest experience', icon: '⭐' },
+  { value: 'EN & 中文', label: 'Bilingual guides', icon: '🗣️' },
+  { value: 'Worldwide', label: 'Destinations', icon: '🌏' },
 ]
 
 export default async function HomePage() {
@@ -98,12 +98,13 @@ export default async function HomePage() {
         <HeroTourCarousel tours={allTours} />
 
         {/* Stats trust bar */}
-        <div className="bg-ocean-600 text-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-5 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="bg-ocean-700 text-white relative">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 sm:grid-cols-4 gap-6">
             {stats.map((s) => (
-              <div key={s.label} className="text-center">
+              <div key={s.label} className="text-center flex flex-col items-center gap-1">
+                <span className="text-lg">{s.icon}</span>
                 <p className="text-xl font-bold text-sandy-300">{s.value}</p>
-                <p className="text-ocean-100 text-xs mt-0.5">{s.label}</p>
+                <p className="text-ocean-200/80 text-xs">{s.label}</p>
               </div>
             ))}
           </div>
@@ -111,18 +112,19 @@ export default async function HomePage() {
 
         {/* Local tours grid */}
         {localTours.length > 0 && (
-          <section className="py-16 px-4">
+          <section className="py-20 px-4 bg-warm-50">
             <div className="max-w-5xl mx-auto">
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
                 <div className="text-center sm:text-left">
-                  <h2 className="text-3xl font-bold text-gray-900">Explore Our Tours</h2>
-                  <p className="text-gray-500 mt-2 max-w-2xl">
+                  <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-2">Discover Singapore</p>
+                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Explore Our Tours</h2>
+                  <p className="text-gray-500 mt-3 max-w-2xl text-lg">
                     Hand-picked experiences to discover Singapore&apos;s rich culture and heritage.
                   </p>
                 </div>
                 <Link
                   href="/tours?type=local"
-                  className="inline-flex items-center gap-1 text-ocean-600 hover:text-ocean-700 font-medium text-sm shrink-0 self-center sm:self-auto"
+                  className="inline-flex items-center gap-1.5 text-ocean-600 hover:text-ocean-700 font-semibold text-sm shrink-0 self-center sm:self-auto bg-ocean-50 hover:bg-ocean-100 px-4 py-2 rounded-full transition-colors"
                 >
                   View all
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -143,21 +145,21 @@ export default async function HomePage() {
 
         {/* Worldwide packages section */}
         {worldwideTours.length > 0 && (
-          <section className="py-16 px-4 bg-gradient-to-b from-white to-ocean-50">
+          <section className="py-20 px-4 bg-gradient-to-b from-warm-50 via-ocean-50/30 to-warm-50">
             <div className="max-w-5xl mx-auto">
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
                 <div className="text-center sm:text-left">
-                  <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-1">
+                  <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-2">
                     International Travel
                   </p>
-                  <h2 className="text-3xl font-bold text-gray-900">Worldwide Packages</h2>
-                  <p className="text-gray-500 mt-2 max-w-2xl">
+                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Worldwide Packages</h2>
+                  <p className="text-gray-500 mt-3 max-w-2xl text-lg">
                     Multi-day international tours for families, seniors, and every kind of traveller.
                   </p>
                 </div>
                 <Link
                   href="/tours?type=worldwide"
-                  className="inline-flex items-center gap-1 text-ocean-600 hover:text-ocean-700 font-medium text-sm shrink-0 self-center sm:self-auto"
+                  className="inline-flex items-center gap-1.5 text-ocean-600 hover:text-ocean-700 font-semibold text-sm shrink-0 self-center sm:self-auto bg-ocean-50 hover:bg-ocean-100 px-4 py-2 rounded-full transition-colors"
                 >
                   View all packages
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -177,23 +179,24 @@ export default async function HomePage() {
         )}
 
         {/* Why Choose Us */}
-        <section className="py-20 px-4 bg-gray-50 border-t border-gray-100">
+        <section className="py-24 px-4 bg-white">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3">Why Choose Us?</h2>
-              <p className="text-gray-500 max-w-xl mx-auto">
+            <div className="text-center mb-14">
+              <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-2">Our Promise</p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Why Choose Us?</h2>
+              <p className="text-gray-500 max-w-xl mx-auto text-lg">
                 We don&apos;t just run tours — we create journeys worth remembering.
               </p>
             </div>
 
             {/* Feature pillars */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-20">
               {features.map((f) => (
-                <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-ocean-50 text-ocean-600 flex items-center justify-center mx-auto mb-4">
+                <div key={f.title} className="bg-warm-50 rounded-2xl p-8 border border-gray-100 text-center hover:shadow-md hover:border-ocean-200/50 transition-all duration-300 group">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-ocean-50 to-ocean-100 text-ocean-600 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
                     {f.icon}
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{f.title}</h3>
+                  <h3 className="font-bold text-gray-900 text-lg mb-2">{f.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{f.description}</p>
                 </div>
               ))}
@@ -201,36 +204,39 @@ export default async function HomePage() {
 
             {/* Story prose */}
             <div className="max-w-3xl mx-auto">
-              <div className="text-gray-700 leading-relaxed space-y-5 text-base">
-                <p>
-                  At Awesome Travel &amp; Tour, we may be a new name in the travel industry, but our passion
-                  for travel is lifelong. To us, travel is more than just a holiday – it is a lifestyle
-                  choice, a chance to refresh one&apos;s spirit, and a way to find new motivation when life
-                  feels tough. We believe that everyone, regardless of age, deserves the joy of discovering
-                  the world.
-                </p>
-                <p>
-                  The inspiration to start this agency came from my own family. When my parents wanted to
-                  visit their ancestral hometown in China, I realised how meaningful such journeys are for
-                  seniors – yet how difficult it can be for their children, busy with careers and family
-                  commitments, to accompany them. That&apos;s when I decided to dedicate part of my agency to
-                  serving senior travellers, creating safe, thoughtful, and well-planned tours that allow
-                  them to travel with confidence and peace of mind.
-                </p>
-                <p>
-                  But our love for travel doesn&apos;t stop there. As Singaporeans born and bred locally, we
-                  are passionate about sharing our home with visitors from around the world. Many say
-                  Singapore is small and has little to offer – but join us on one of our 4-hour walking
-                  tours, and you&apos;ll see how every corner has a story. With our local guides, you&apos;ll
-                  discover hidden gems, cultural tales, and living history that turns stone and brick into
-                  experiences that truly come alive.
-                </p>
-              </div>
-              <div className="mt-10 pt-8 border-t border-gray-200 text-center">
-                <p className="text-lg font-semibold text-ocean-700 italic">
-                  &ldquo;Because Every Journey Deserves Care.&rdquo;
-                </p>
-                <p className="text-sm text-gray-400 mt-1">— Awesome Travel &amp; Tour</p>
+              <div className="bg-warm-50 rounded-3xl p-8 sm:p-12 border border-gray-100">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Our Story</h3>
+                <div className="text-gray-600 leading-relaxed space-y-5 text-base">
+                  <p>
+                    At Awesome Travel &amp; Tour, we may be a new name in the travel industry, but our passion
+                    for travel is lifelong. To us, travel is more than just a holiday – it is a lifestyle
+                    choice, a chance to refresh one&apos;s spirit, and a way to find new motivation when life
+                    feels tough. We believe that everyone, regardless of age, deserves the joy of discovering
+                    the world.
+                  </p>
+                  <p>
+                    The inspiration to start this agency came from my own family. When my parents wanted to
+                    visit their ancestral hometown in China, I realised how meaningful such journeys are for
+                    seniors – yet how difficult it can be for their children, busy with careers and family
+                    commitments, to accompany them. That&apos;s when I decided to dedicate part of my agency to
+                    serving senior travellers, creating safe, thoughtful, and well-planned tours that allow
+                    them to travel with confidence and peace of mind.
+                  </p>
+                  <p>
+                    But our love for travel doesn&apos;t stop there. As Singaporeans born and bred locally, we
+                    are passionate about sharing our home with visitors from around the world. Many say
+                    Singapore is small and has little to offer – but join us on one of our 4-hour walking
+                    tours, and you&apos;ll see how every corner has a story. With our local guides, you&apos;ll
+                    discover hidden gems, cultural tales, and living history that turns stone and brick into
+                    experiences that truly come alive.
+                  </p>
+                </div>
+                <div className="mt-8 pt-8 border-t border-gray-200 text-center">
+                  <p className="text-xl font-semibold text-ocean-700 italic">
+                    &ldquo;Because Every Journey Deserves Care.&rdquo;
+                  </p>
+                  <p className="text-sm text-gray-400 mt-2">— Awesome Travel &amp; Tour</p>
+                </div>
               </div>
             </div>
           </div>
@@ -239,18 +245,28 @@ export default async function HomePage() {
         <HomeFaq />
 
         {/* CTA */}
-        <section className="py-20 px-4 bg-gradient-to-br from-ocean-700 via-ocean-600 to-teal-500 text-white text-center">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold mb-4">Ready for Your Next Adventure?</h2>
-            <p className="text-ocean-100 mb-8 text-lg">
+        <section className="py-24 px-4 bg-gradient-to-br from-ocean-800 via-ocean-700 to-teal-500 text-white text-center relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 left-10 w-72 h-72 rounded-full bg-sandy-300 blur-3xl" />
+            <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-teal-300 blur-3xl" />
+          </div>
+          <div className="max-w-2xl mx-auto relative">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-5">Ready for Your Next Adventure?</h2>
+            <p className="text-ocean-100 mb-10 text-lg leading-relaxed">
               Book your tour today and create memories that last a lifetime.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/tours"
-                className="inline-flex items-center justify-center bg-sandy-300 hover:bg-sandy-500 text-ocean-800 font-bold px-10 py-3.5 rounded-xl transition-colors"
+                className="inline-flex items-center justify-center bg-sandy-300 hover:bg-sandy-500 text-ocean-800 font-bold px-10 py-3.5 rounded-xl transition-all hover:shadow-lg active:scale-[0.98]"
               >
                 Explore Tours
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center border-2 border-white/30 hover:border-white/60 text-white font-bold px-10 py-3.5 rounded-xl transition-all hover:bg-white/10"
+              >
+                Contact Us
               </Link>
             </div>
           </div>

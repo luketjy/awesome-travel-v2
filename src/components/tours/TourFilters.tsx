@@ -38,13 +38,13 @@ export default function TourFilters() {
   const hasFilters = currentCategory || currentPrice || currentDestination
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-4 flex flex-wrap gap-4 items-end">
+    <div className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-wrap gap-4 items-end shadow-sm">
       <div className="flex-1 min-w-40">
         <label className="block text-xs font-medium text-gray-500 mb-1.5">Category</label>
         <select
           value={currentCategory}
           onChange={(e) => updateFilter('category', e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ocean-500"
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:border-ocean-500 transition-colors"
         >
           <option value="">All categories</option>
           {TOUR_CATEGORIES.map((c) => (
@@ -60,7 +60,7 @@ export default function TourFilters() {
         <select
           value={currentPrice}
           onChange={(e) => updateFilter('price', e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ocean-500"
+          className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:border-ocean-500 transition-colors"
         >
           {PRICE_RANGES.map((r) => (
             <option key={r.value} value={r.value}>
@@ -78,7 +78,7 @@ export default function TourFilters() {
             value={currentDestination}
             onChange={(e) => updateFilter('destination', e.target.value)}
             placeholder="e.g. Japan"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ocean-500"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:border-ocean-500 transition-colors"
           />
         </div>
       )}
@@ -92,7 +92,7 @@ export default function TourFilters() {
             params.delete('destination')
             router.push(`${pathname}?${params.toString()}`)
           }}
-          className="text-sm text-ocean-600 hover:text-ocean-700 font-medium py-2"
+          className="text-sm text-ocean-600 hover:text-ocean-700 font-medium py-2.5 hover:underline"
         >
           Clear filters
         </button>

@@ -19,19 +19,22 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
 
 export default function HomeFaq() {
   return (
-    <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
+    <section className="py-20 px-4 bg-warm-50">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-3">FAQ</h2>
-        <p className="text-gray-500 text-center mb-10 text-sm">
-          Quick answers about our tours and how we work.
-        </p>
+        <div className="text-center mb-12">
+          <p className="text-ocean-500 text-sm font-semibold uppercase tracking-widest mb-2">Questions?</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Frequently Asked</h2>
+          <p className="text-gray-500 text-lg">
+            Quick answers about our tours and how we work.
+          </p>
+        </div>
         <div className="space-y-3">
           {FAQ_ITEMS.map(({ q, a }) => (
             <details
               key={q}
-              className="group rounded-xl border border-gray-200 bg-white px-5 py-1 shadow-sm open:shadow-md open:border-ocean-200 transition-shadow"
+              className="group rounded-2xl border border-gray-100 bg-white px-6 py-1 shadow-sm open:shadow-md open:border-ocean-200 transition-all"
             >
-              <summary className="cursor-pointer list-none py-4 font-semibold text-gray-800 flex items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+              <summary className="cursor-pointer list-none py-5 font-semibold text-gray-800 flex items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
                 <span>{q}</span>
                 <svg
                   width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -41,7 +44,7 @@ export default function HomeFaq() {
                   <path d="M5 7.5l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </summary>
-              <div className="text-gray-600 text-sm leading-relaxed pb-4 pt-3 border-t border-gray-100">
+              <div className="text-gray-600 text-sm leading-relaxed pb-5 pt-3 border-t border-gray-100">
                 {a}
               </div>
             </details>

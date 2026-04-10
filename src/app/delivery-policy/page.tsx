@@ -9,11 +9,11 @@ export default function DeliveryPolicyPage() {
   return (
     <>
       <Header />
-      <main className="flex-1">
-        <div className="bg-gradient-to-br from-ocean-700 via-ocean-600 to-teal-500 text-white py-12 px-4">
+      <main className="flex-1 bg-warm-50">
+        <div className="bg-gradient-to-br from-ocean-800 via-ocean-700 to-teal-500 text-white py-14 px-4">
           <div className="max-w-3xl mx-auto">
-            <h1 className="text-3xl font-bold">Delivery Policy</h1>
-            <p className="text-ocean-200 text-sm mt-2">Last Updated: 6 April 2026</p>
+            <h1 className="text-3xl sm:text-4xl font-bold">Delivery Policy</h1>
+            <p className="text-ocean-200/80 text-sm mt-2">Last Updated: 6 April 2026</p>
           </div>
         </div>
 
