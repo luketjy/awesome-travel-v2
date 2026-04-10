@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, after } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 import { getOrderById, isOrderPaidAtGateway } from '@/lib/fomopay/client'
 import { verifyFomoWebhook } from '@/lib/fomopay/webhook'
@@ -82,10 +82,13 @@ export async function POST(req: NextRequest) {
   }
 
   if (saleSucceeded) {
-    // Fire-and-forget — do not let invoice errors fail the webhook response
-    createInvoice(bookingId).catch((err) =>
-      console.error('[fomopay webhook] createInvoice error', err)
-    )
+    after(async () => {
+      try {
+        await createInvoice(bookingId)
+      } catch (err) {
+        console.error('[fomopay webhook] createInvoice error', err)
+      }
+    })
   }
 
   return new Response(null, { status: 200 })
