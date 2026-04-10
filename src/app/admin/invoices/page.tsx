@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic'
 
 import Link from 'next/link'
 import { createServerClient } from '@/lib/supabase/server'
+import InvoiceDeleteButton from '@/components/admin/InvoiceDeleteButton'
 
 interface Invoice {
   id: string
@@ -98,12 +99,15 @@ export default async function AdminInvoicesPage() {
                     )}
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <Link
-                      href={`/admin/invoices/${inv.id}`}
-                      className="text-xs text-ocean-600 hover:text-ocean-700 font-medium"
-                    >
-                      View
-                    </Link>
+                    <div className="flex items-center justify-end gap-3">
+                      <Link
+                        href={`/admin/invoices/${inv.id}`}
+                        className="text-xs text-ocean-600 hover:text-ocean-700 font-medium"
+                      >
+                        View
+                      </Link>
+                      <InvoiceDeleteButton id={inv.id} invoiceNumber={inv.invoice_number} />
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { createServerClient } from '@/lib/supabase/server'
 import { renderInvoiceHtml } from '@/lib/invoice/template'
 import InvoicePrintButton from '@/components/admin/InvoicePrintButton'
+import InvoiceDeleteButton from '@/components/admin/InvoiceDeleteButton'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -57,7 +58,10 @@ export default async function AdminInvoiceDetailPage({ params }: PageProps) {
           <span className="text-gray-300">/</span>
           <span className="text-sm font-mono font-semibold text-gray-700">{inv.invoice_number}</span>
         </div>
-        <InvoicePrintButton iframeId="invoice-frame" />
+        <div className="flex items-center gap-3">
+          <InvoiceDeleteButton id={inv.id} invoiceNumber={inv.invoice_number} />
+          <InvoicePrintButton iframeId="invoice-frame" />
+        </div>
       </div>
 
       {/* Render invoice HTML in an iframe for accurate preview and printing */}
