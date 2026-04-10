@@ -37,7 +37,7 @@ export async function createInvoice(bookingId: string): Promise<void> {
     return
   }
 
-  const tourDate = booking.tour_date as {
+  const tourDate = booking.tour_date as unknown as {
     date: string
     tour: { name: string; price: number }
   } | null
