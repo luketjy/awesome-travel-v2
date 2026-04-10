@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import CookieBanner from "@/components/layout/CookieBanner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,6 +34,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         {children}
+        <CookieBanner />
         <Script id="google-translate-init" strategy="afterInteractive">{`
           window.googleTranslateElementInit = function() {
             new google.translate.TranslateElement(

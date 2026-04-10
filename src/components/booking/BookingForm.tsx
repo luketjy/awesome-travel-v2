@@ -23,6 +23,7 @@ export default function BookingForm({ tour, tourDate }: Props) {
     customerPhone: '',
     numPax: 1,
   })
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
 
   function set(field: keyof typeof form, value: string | number) {
     setForm((prev) => ({ ...prev, [field]: value }))
@@ -122,6 +123,31 @@ export default function BookingForm({ tour, tourDate }: Props) {
         <span className="text-ocean-600 font-bold text-xl">{formatPrice(totalPrice)}</span>
       </div>
 
+      {/* Terms agreement */}
+      <label className="flex items-start gap-3 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={agreedToTerms}
+          onChange={(e) => setAgreedToTerms(e.target.checked)}
+          className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-ocean-500 shrink-0"
+        />
+        <span className="text-sm text-gray-600">
+          I have read and agree to the{' '}
+          <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-ocean-600 underline hover:text-ocean-700">
+            Terms &amp; Conditions
+          </a>
+          ,{' '}
+          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-ocean-600 underline hover:text-ocean-700">
+            Privacy Policy
+          </a>
+          , and{' '}
+          <a href="/refund-policy" target="_blank" rel="noopener noreferrer" className="text-ocean-600 underline hover:text-ocean-700">
+            Refund Policy
+          </a>
+          .
+        </span>
+      </label>
+
       {error && (
         <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
           {error}
@@ -130,8 +156,8 @@ export default function BookingForm({ tour, tourDate }: Props) {
 
       <button
         type="submit"
-        disabled={loading}
-        className="w-full bg-ocean-500 hover:bg-ocean-600 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition-colors"
+        disabled={loading || !agreedToTerms}
+        className="w-full bg-ocean-500 hover:bg-ocean-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition-colors"
       >
         {loading ? 'Processing…' : 'Confirm Booking'}
       </button>
