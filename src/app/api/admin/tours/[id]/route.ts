@@ -77,6 +77,24 @@ export async function DELETE(_req: NextRequest, ctx: Ctx) {
   if (dates && dates.length > 0) {
     const dateIds = dates.map((d) => d.id)
 
+    // Get booking IDs so we can delete dependent invoices first
+    const { data: bookings } = await supabase
+      .from('bookings')
+      .select('id')
+      .in('tour_date_id', dateIds)
+
+    if (bookings && bookings.length > 0) {
+      const bookingIds = bookings.map((b) => b.id)
+
+      // Delete invoices before bookings (FK constraint)
+      const { error: invoicesErr } = await supabase
+        .from('invoices')
+        .delete()
+        .in('booking_id', bookingIds)
+
+      if (invoicesErr) return Response.json({ error: invoicesErr.message }, { status: 500 })
+    }
+
     // Delete bookings linked to those dates
     const { error: bookingsErr } = await supabase
       .from('bookings')
